@@ -251,7 +251,7 @@ body{background:var(--bg);color:var(--w);font-family:system-ui,-apple-system,san
   <span id="timerDisp" class="muted">00:00:00</span>
 </div>
 
-<!-- PROGRESS (NOW 5 HABITS) -->
+<!-- PROGRESS (5 CORE HABITS) -->
 <div style="margin-bottom:14px;">
   <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
     <span style="font-size:9px;font-weight:700;color:var(--m);letter-spacing:2px;text-transform:uppercase;">Today's Execution</span>
@@ -378,7 +378,6 @@ body{background:var(--bg);color:var(--w);font-family:system-ui,-apple-system,san
 </div>
 
 <script>
-// CLEAN CORE 5 HABITS (Removed morning & night affirmations)
 const HABITS=[
   {id:"meditation",short:"Meditation",text:"🧘 Morning meditation"},
   {id:"workout",short:"Workout/Box",text:"🏋️ Workout + Boxing done"},
@@ -425,8 +424,7 @@ const EXP_GUIDE=[
   ["PMO relapse 5d+","#ff3c3c","-200 per slip"]
 ];
 
-// FRESH DATABASE KEY
-const KEY='nikrises_clean_v10_custom_pure';
+const KEY='nikrises_clean_v11_final_release';
 
 function load(){
   try{
@@ -481,7 +479,6 @@ if(!store.today)store.today={date:todayKey(),checked:{},todos:[],note:'',isSaved
 if(!store.today.checked)store.today.checked={};
 if(!store.today.todos)store.today.todos=[];
 
-// CUSTOM NAME INITIALIZATION
 function checkHunterName(){
   if(!store.hunterName||store.hunterName.trim()===''){
     document.getElementById('nameModal').classList.add('show');

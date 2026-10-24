@@ -110,7 +110,7 @@ body{background:var(--bg);color:var(--w);font-family:system-ui,-apple-system,san
 </div>
 
 <div class="levelup" id="levelup">
-  <div id="luRank" style="font-size:100px;font-weight:900;line-height:1;">C</div>
+  <div id="luRank" style="font-size:100px;font-weight:900;line-height:1;">E</div>
   <div style="font-size:28px;font-weight:900;color:var(--w);letter-spacing:3px;margin-top:8px;">RANK UP!</div>
   <div id="luName" style="font-family:monospace;font-size:14px;letter-spacing:2px;margin-top:6px;"></div>
   <button onclick="document.getElementById('levelup').classList.remove('show')" id="luBtn" style="margin-top:24px;border:none;border-radius:10px;padding:14px 32px;font-size:18px;letter-spacing:2px;color:#000;cursor:pointer;font-weight:900;">ARISE ⚔️</button>
@@ -219,27 +219,27 @@ body{background:var(--bg);color:var(--w);font-family:system-ui,-apple-system,san
   </div>
 </div>
 
-<!-- RANK HERO -->
+<!-- RANK HERO (STARTS AT RANK E, 0 EXP) -->
 <div class="rank-hero" id="rankHero">
   <div id="rankGlow" style="position:absolute;inset:0;pointer-events:none;"></div>
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-    <div id="rankBadge" style="font-size:52px;font-weight:900;line-height:1;">C</div>
+    <div id="rankBadge" style="font-size:52px;font-weight:900;line-height:1;">E</div>
     <div style="text-align:right;">
-      <div id="rankName" style="font-size:17px;font-weight:700;color:var(--w);">Silver Hunter</div>
+      <div id="rankName" style="font-size:17px;font-weight:700;color:var(--w);">Iron Hunter</div>
       <div style="display:flex;gap:6px;align-items:center;margin-top:2px;justify-content:flex-end;">
         <div id="hunterTagDisp" class="muted">HUNTER</div>
-        <div id="levelDisp" style="font-family:monospace;font-size:10px;color:var(--g);background:var(--gd);border:1px solid rgba(57,255,20,0.2);border-radius:4px;padding:2px 6px;">LVL 8</div>
+        <div id="levelDisp" style="font-family:monospace;font-size:10px;color:var(--g);background:var(--gd);border:1px solid rgba(57,255,20,0.2);border-radius:4px;padding:2px 6px;">LVL 0</div>
       </div>
     </div>
   </div>
   <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
     <span class="muted">EXP Progress</span>
-    <span id="expFraction" style="font-family:monospace;font-size:11px;color:var(--w);font-weight:700;">0 / 17,000</span>
+    <span id="expFraction" style="font-family:monospace;font-size:11px;color:var(--w);font-weight:700;">0 / 2,000</span>
   </div>
   <div class="bar-bg"><div id="expBar" class="bar-fill" style="width:0%;background:var(--g);box-shadow:0 0 8px var(--gg);"></div></div>
   <div style="display:flex;justify-content:space-between;margin-top:12px;">
-    <div style="text-align:center;"><div id="totalExpDisp" style="font-size:16px;font-weight:900;color:var(--g);">8,000</div><div style="font-family:monospace;font-size:8px;color:var(--m);text-transform:uppercase;">Total EXP</div></div>
-    <div style="text-align:center;"><div id="toNextDisp" style="font-size:16px;font-weight:900;color:var(--w);">17,000</div><div style="font-family:monospace;font-size:8px;color:var(--m);text-transform:uppercase;">To Next</div></div>
+    <div style="text-align:center;"><div id="totalExpDisp" style="font-size:16px;font-weight:900;color:var(--g);">0</div><div style="font-family:monospace;font-size:8px;color:var(--m);text-transform:uppercase;">Total EXP</div></div>
+    <div style="text-align:center;"><div id="toNextDisp" style="font-size:16px;font-weight:900;color:var(--w);">2,000</div><div style="font-family:monospace;font-size:8px;color:var(--m);text-transform:uppercase;">To Next</div></div>
     <div style="text-align:center;"><div id="penaltiesDisp" style="font-size:16px;font-weight:900;color:var(--r);">0</div><div style="font-family:monospace;font-size:8px;color:var(--m);text-transform:uppercase;">Penalties</div></div>
     <div style="text-align:center;"><div id="freezesDisp" style="font-size:16px;font-weight:900;color:var(--blue);">0/2</div><div style="font-family:monospace;font-size:8px;color:var(--m);text-transform:uppercase;">Shields</div></div>
   </div>
@@ -424,7 +424,8 @@ const EXP_GUIDE=[
   ["PMO relapse 5d+","#ff3c3c","-200 per slip"]
 ];
 
-const KEY='nikrises_clean_v11_final_release';
+// CLEAN TEMPLATE DATABASE KEY (STARTS COMPLETELY FRESH)
+const KEY='nikrises_clean_v12_brand_new_zero';
 
 function load(){
   try{
@@ -452,11 +453,12 @@ function fmtDate(){
 }
 function num(n){return Number(n||0).toLocaleString();}
 
+// INITIALIZE FRESH INSTANCE AT 0 EXP, RANK E
 var store=load();
 if(!store){
   store={
     hunterName:'',
-    totalExp:8000,
+    totalExp:0,
     penalties:0,
     freezes:0,
     punishment:null,
@@ -468,7 +470,7 @@ if(!store){
 }
 
 if(typeof store.hunterName!=='string')store.hunterName='';
-if(typeof store.totalExp!=='number'||isNaN(store.totalExp))store.totalExp=8000;
+if(typeof store.totalExp!=='number'||isNaN(store.totalExp))store.totalExp=0;
 if(typeof store.freezes!=='number')store.freezes=0;
 if(typeof store.penalties!=='number')store.penalties=0;
 if(!store.pmo)store.pmo={days:0,best:0,resets:0,triggers:[],dailyLog:{}};
